@@ -1,32 +1,32 @@
 import PropTypes from 'prop-types'
 import ActionTypes from '../constants/actionTypes'
 
-export const Model = PropTypes.shape({
+export const Revision = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  thumbnailURL: PropTypes.string.isRequired,
 });
 
-export const Models = PropTypes.shape({
+export const Revisions = PropTypes.shape({
   loading: PropTypes.bool.isRequired,
-  items: PropTypes.arrayOf(Model).isRequired,
+  items: PropTypes.arrayOf(Revision).isRequired,
 });
 
-// nodeId -> { loading: boolean, items: array of models }
+// nodeId -> { loading: boolean, items: array of revisions }
 const initialState = {
   loading: false,
   items: [],
 }
 
-export default function models(state = initialState, action) {
+export default function revisions(state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.FETCH_MODELS: {
+    case ActionTypes.FETCH_REVISIONS: {
       return {
         ...state,
         loading: true,
         items: [],
       }
     }
-    case ActionTypes.SET_MODELS: {
+    case ActionTypes.SET_REVISIONS: {
       return {
         ...state,
         loading: false,

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Drawer } from 'antd'
 import CommentSection from '../components/CommentSection'
-import { fetchComments, submitComment } from '../actions/models'
-import { Comments } from '../reducers/models'
-import { selectComments } from '../selectors/models'
+import { fetchComments, submitComment } from '../actions/comments'
+import { Comments } from '../reducers/comments'
+import { selectComments } from '../selectors/comments'
 
 class CommentDrawer extends React.Component {
   componentDidMount() {
