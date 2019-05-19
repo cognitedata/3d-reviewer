@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "author": "Fredrik Anfinsen",
   "license": "Apache-2.0",
+  "homepage": ".",
   "dependencies": {
     "@cognite/3d-viewer": "5",
     "@cognite/gearbox": "^0.0.32",
