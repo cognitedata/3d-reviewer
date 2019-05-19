@@ -1,36 +1,42 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
-import { ReactAuthProvider } from '@cognite/react-auth';
-import { Route, Redirect, Switch } from 'react-router-dom'
-import Model from "./Model"
+import { TenantSelector } from '@cognite/gearbox'
+import styled from 'styled-components'
 
-const revisionUrl = `models/:modelId/revisions/:revisionId`;
-const Login = ({ tenant, match }) => (
-  <ReactAuthProvider 
-    project={tenant}
-    redirectUrl={window.location.href}
-    errorRedirectUrl={window.location.href}
-    usePopup
-    enableTokenCaching
-  >
-    <Switch>
-      {/* <Route exact path={`${match.url}/${revisionUrl}/comments/:nodeId`} component={Model} /> */}
-      <Redirect exact strict from={`${match.url}/${revisionUrl}/`} to={`${match.url}/${revisionUrl}`} />
-      <Route path={`${match.url}/models/:modelId/revisions/:revisionId`} component={Model} />
-    </Switch>
-   </ReactAuthProvider>
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const TenantSelectorContainer = styled.div`
+  max-width: 600px;
+  min-width: 400px;
+  align-self: center;
+`;
+
+const Login = ({ onTenantSelected }) => (
+  <Wrapper>
+    <TenantSelectorContainer>
+      <TenantSelector
+        title="3D Reviewer"
+        onTenantSelected={onTenantSelected}
+        placeholder="itera-dev"
+      />
+    </TenantSelectorContainer>
+  </Wrapper>
 )
 Login.propTypes = {
-  tenant:  PropTypes.string.isRequired,
-  match: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  onTenantSelected:  PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (_, ownProps) => {
-  const { tenant } = ownProps.match.params;
-  return { tenant }
+  const onTenantSelected = (tenant) => {
+    ownProps.history.push(`/${tenant}/models`);
+  }
+  return { onTenantSelected };
 }
 
 export default connect(mapStateToProps)(Login);
